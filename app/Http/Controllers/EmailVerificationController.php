@@ -16,12 +16,12 @@ class EmailVerificationController extends Controller
         $email = $request->input('email');
         $token = $request->input('token');
         // 如果有一个为空说明不是一个合法的验证链接，直接抛出异常。
-        if (!$email || $token) {
+        if (!$email || !$token) {
             throw new Exception('验证链接不正确');
         }
         // 从缓存中读取数据，我们把从 url 中获取的 `token` 与缓存中的值做对比
         // 如果缓存不存在或者返回的值与 url 中的 `token` 不一致就抛出异常。
-        if ($token != Cache::get('email_verification_', $email)) {
+        if ($token != Cache::get('email_verification_' . $email)) {
             throw new Exception('验证链接不正确或已过期');
         }
         // 根据邮箱从数据库中获取对应的用户
@@ -40,7 +40,7 @@ class EmailVerificationController extends Controller
 
     public function send(Request $request)
     {
-        //@fixme 不懂 为啥不用依赖注入
+        //获取登录用户
         $user = $request->user();
         //判断用户是否已经激活
         if ($user->email_verified) {

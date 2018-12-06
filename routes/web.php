@@ -19,7 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/email_verification/send', 'EmailVerificationController@send')->name('email_verification.send');
     //开始
     Route::group(['middleware' => 'email_verified'], function () {
-
+        //
     });
     //结束
 });

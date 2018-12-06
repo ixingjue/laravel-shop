@@ -13,6 +13,9 @@ class PagesController extends Controller
 
     public function emailVerifyNotice(Request $request)
     {
-        return view('pages.email_verify_notice');
+        if (!$request->user()->email_verified) {
+            return view('pages.email_verify_notice');
+        }
+        return redirect()->route('root');
     }
 }
