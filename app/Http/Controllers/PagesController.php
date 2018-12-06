@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class PagesController extends Controller
 {
     public function root()
@@ -11,11 +9,8 @@ class PagesController extends Controller
         return view('pages.root');
     }
 
-    public function emailVerifyNotice(Request $request)
+    public function emailVerifyNotice()
     {
-        if (!$request->user()->email_verified) {
-            return view('pages.email_verify_notice');
-        }
-        return redirect()->route('root');
+        return view('pages.email_verify_notice');
     }
 }
