@@ -227,5 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
+    // 设置工厂为中文
+    'faker_locale' => 'zh_CN',
 ];
