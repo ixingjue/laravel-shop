@@ -6,9 +6,11 @@
         <div class="col-lg-10 col-lg-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">收货地址列表
-                    <a href="{{route('user_addresses.create')}}" class="pull-right">
-                        新增收货地址
-                    </a>
+                    @if(count($addresses))
+                        <a href="{{route('user_addresses.create')}}" class="pull-right">
+                            新增收货地址
+                        </a>
+                    @endif
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered table-striped">
@@ -22,6 +24,13 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if(!count($addresses))
+                            <tr>
+                                <td class="text-center" colspan="5">
+                                    <a class="btn btn-primary" href="{{route('user_addresses.create')}}">还没有收货地址，请先添加收货地址哦</a>
+                                </td>
+                            </tr>
+                        @endif
                         @foreach($addresses as $address)
                             <tr>
                                 <td>{{ $address->contact_name }}</td>
@@ -30,13 +39,7 @@
                                 <td>{{ $address->contact_phone }}</td>
                                 <td>
                                     <a href="{{route('user_addresses.edit',['user_address'=>$address->id])}}" class="btn btn-primary">修改</a>
-                                {{--<form action="{{route('user_addresses.destroy',['user_address'=>$address->id])}}" method="post"--}}
-                                {{--style="display: inline-block">--}}
-                                {{--{{csrf_field()}}--}}
-                                {{--{{method_field('DELETE')}}--}}
-                                {{--<button class="btn btn-danger" type="submit">删除</button>--}}
-                                {{--</form>--}}
-                                <!-- 把之前删除按钮的表单替换成这个按钮，data-id 属性保存了这个地址的 id，在 js 里会用到 -->
+                                    <!-- 把之前删除按钮的表单替换成这个按钮，data-id 属性保存了这个地址的 id，在 js 里会用到 -->
                                     <button class="btn btn-danger btn-del-address" type="button"
                                             data-id="{{ $address->id }}">删除
                                     </button>
