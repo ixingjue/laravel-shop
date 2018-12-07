@@ -55,6 +55,7 @@ class Handler extends ExceptionHandler
                 // json() 方法第二个参数就是 Http 返回码
                 return response()->json(['msg' => $msg], 403);
             }
+            //@fixme 为啥直接return view()报错？
             return response()->view('pages.error', ['msg' => $msg]);
         }
         return parent::render($request, $exception);
