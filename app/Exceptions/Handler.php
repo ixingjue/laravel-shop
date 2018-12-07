@@ -43,6 +43,7 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
+     * @url https://laravel-china.org/topics/14980/
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
