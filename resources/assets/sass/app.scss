@@ -56,8 +56,11 @@ body {
 }
 
 .products-index-page {
-  .pagination {
-    margin-right: 5px;
+
+  .search-form {
+    padding: 0 20px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
   }
 
   .products-list {
@@ -125,6 +128,10 @@ body {
             line-height: 12px;
             flex-grow: 1;
             border-top: 1px solid #eee;
+          }
+
+          .pagination {
+            margin-right: 5px;
           }
         }
       }
