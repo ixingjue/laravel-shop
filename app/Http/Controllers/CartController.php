@@ -39,6 +39,7 @@ class CartController extends Controller
 
     public function remove(ProductSku $sku, Request $request)
     {
+        //@fixme https://laravel-china.org/topics/20615
         $request->user()->cartItems()->where('product_sku_id', $sku->id)->delete();
         return [];
     }
