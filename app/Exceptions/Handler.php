@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->expectsJson()) {
+                // json() 方法第二个参数就是 Http 返回码
+                return response()->json(['msg' => $exception->getStatusCode()], $exception->getStatusCode());
+            }
+            return response()->view('error.' . $exception->getStatusCode()
+                , ['msg' => $exception->getStatusCode()]);
+        }
         if ($exception instanceof AuthorizationException) {
             $msg = '没有操作权限';
             if ($request->expectsJson()) {
