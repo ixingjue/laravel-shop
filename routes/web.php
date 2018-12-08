@@ -32,6 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('products/favorites', 'ProductsController@favorites')->name('products.favorites');
         Route::post('cart', 'CartController@add')->name('cart.add');
     });
-    Route::get('products/{product}', 'ProductsController@show')->name('products.show');
     //结束
 });
+Route::get('products/{product}', 'ProductsController@show')->name('products.show');
