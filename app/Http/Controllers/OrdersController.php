@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Jobs\closeOrder;
 use App\Models\Order;
 use App\Models\ProductSku;
 use Carbon\Carbon;
@@ -62,6 +63,7 @@ class OrdersController extends Controller
             $user->cartItems()->whereIn('product_sku_id', $skuIds)->delete();
             return $order;
         });
+        $this->dispatch(new closeOrder($order, config('app.order_ttl')));
         return $order;
     }
 }
