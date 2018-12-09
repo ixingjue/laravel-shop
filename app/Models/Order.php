@@ -57,7 +57,7 @@ class Order extends Model
         'paid_at',
     ];
 
-    //fixme 这个方法理解一下 boot
+    //boot作用和模型观察器类似
     protected static function boot()
     {
         parent::boot();
