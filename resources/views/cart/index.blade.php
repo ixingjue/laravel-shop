@@ -19,66 +19,76 @@
                         </tr>
                         </thead>
                         <tbody class="product_list">
-                        @foreach($cartItems as $item)
-                            <tr data-id="{{ $item->productSku->id }}">
-                                <td>
-                                    <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
-                                </td>
-                                <td class="product_info">
-                                    <div class="preview">
-                                        <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
-                                            <img src="{{ $item->productSku->product->image_url }}">
-                                        </a>
-                                    </div>
-                                    <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
+                        @if(count($cartItems)>0)
+                            @foreach($cartItems as $item)
+                                <tr data-id="{{ $item->productSku->id }}">
+                                    <td>
+                                        <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
+                                    </td>
+                                    <td class="product_info">
+                                        <div class="preview">
+                                            <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
+                                                <img src="{{ $item->productSku->product->image_url }}">
+                                            </a>
+                                        </div>
+                                        <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
               <span class="product_title">
                 <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">{{ $item->productSku->product->title }}</a>
               </span>
-                                        <span class="sku_title">{{ $item->productSku->title }}</span>
-                                        @if(!$item->productSku->product->on_sale)
-                                            <span class="warning">该商品已下架</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td><span class="price">￥{{ $item->productSku->price }}</span></td>
-                                <td>
-                                    <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
-                                </td>
-                                <td>
-                                    <button class="btn btn-xs btn-danger btn-remove">移除</button>
+                                            <span class="sku_title">{{ $item->productSku->title }}</span>
+                                            @if(!$item->productSku->product->on_sale)
+                                                <span class="warning">该商品已下架</span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td><span class="price">￥{{ $item->productSku->price }}</span></td>
+                                    <td>
+                                        <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-danger btn-remove">移除</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="text-center" colspan="5">
+                                    <a class="btn btn-danger">购物车没有商品</a>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endif
                         </tbody>
                     </table>
                     <!--开始-->
-                    <div>
-                        <form class="form-horizontal" role="form" id="order-form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">选择收货地址</label>
-                                <div class="col-sm-9 col-md-7">
-                                    <select class="form-control" name="address">
-                                        @foreach($addresses as $address)
-                                            <option value="{{$address->id}}">{{$address->full_address}}</option>
-                                        @endforeach
-                                    </select>
+                    @if(count($cartItems)>0)
+                        <div>
+                            <form class="form-horizontal" role="form" id="order-form">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">选择收货地址</label>
+                                    <div class="col-sm-9 col-md-7">
+                                        <select class="form-control" name="address">
+                                            @foreach($addresses as $address)
+                                                <option value="{{$address->id}}">{{$address->full_address}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">备注</label>
-                                <div class="col-sm-9 col-md-7">
-                                    <textarea name="remark" class="form-control" rows="3"></textarea>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">备注</label>
+                                    <div class="col-sm-9 col-md-7">
+                                        <textarea name="remark" class="form-control" rows="3"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-3">
-                                    <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-3">
+                                        <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- 结束 -->
+                            </form>
+                        </div>
+                @endif
+                <!-- 结束 -->
                 </div>
             </div>
         </div>
