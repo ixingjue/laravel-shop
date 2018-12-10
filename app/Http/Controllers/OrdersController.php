@@ -78,4 +78,11 @@ class OrdersController extends Controller
         $this->dispatch(new closeOrder($order, config('app.order_ttl')));
         return $order;
     }
+
+    public function show(Order $order, Request $request)
+    {
+        //@fixme bug
+        $this->authorize('own', $order);
+        return view('orders.show', ['order' => $order->load('items.productSku', 'items.product')]);
+    }
 }
