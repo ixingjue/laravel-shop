@@ -28,18 +28,14 @@ class OrdersController extends Controller
     }
 
     /**
-     * Show interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
+     * @param \App\Models\Order $order
+     * @return mixed
      */
-    public function show($id, Content $content)
+    public function show(Order $order,Content $content)
     {
         return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
+            ->header('查看订单')
+            ->body(view('admin.orders.show', ['order' => $order]));
     }
 
     /**
@@ -99,7 +95,6 @@ class OrdersController extends Controller
             // 禁用删除和编辑按钮
             $actions->disableDelete();
             $actions->disableEdit();
-            $actions->disableView();
         });
 
         $grid->tools(function ($tools) {
