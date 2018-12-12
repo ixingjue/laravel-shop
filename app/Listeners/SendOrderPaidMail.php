@@ -31,6 +31,7 @@ class SendOrderPaidMail implements ShouldQueue
         // 从事件对象中取出对应的订单
         $order = $event->getOrder();
         // 调用 notify 方法来发送通知
+        //@fixme 加了user()就报错 https://laravel-china.org/topics/20976?#reply74588
         $order->user->notify(new OrderPaidNotification($order));
     }
 }
