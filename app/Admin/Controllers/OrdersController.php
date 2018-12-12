@@ -37,7 +37,7 @@ class OrdersController extends Controller
     public function show(Order $order, Content $content)
     {
         if (!$order->paid_at) {
-            throw new InvalidRequestException('不存在此订单或此订单并未支付');
+            throw new InvalidRequestException('该订单未付款');
         }
         return $content
             ->header('查看订单')
