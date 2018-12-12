@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Exceptions\InvalidRequestException;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -29,10 +30,15 @@ class OrdersController extends Controller
 
     /**
      * @param \App\Models\Order $order
-     * @return mixed
+     * @param \Encore\Admin\Layout\Content $content
+     * @return \Encore\Admin\Layout\Content
+     * @throws \App\Exceptions\InvalidRequestException
      */
-    public function show(Order $order,Content $content)
+    public function show(Order $order, Content $content)
     {
+        if (!$order->paid_at) {
+            throw new InvalidRequestException('不存在此订单或此订单并未支付');
+        }
         return $content
             ->header('查看订单')
             ->body(view('admin.orders.show', ['order' => $order]));
