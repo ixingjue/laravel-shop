@@ -5,7 +5,6 @@ namespace App\Admin\Controllers;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\Request;
 use App\Jobs\AutoReceive;
-use App\Jobs\CloseOrder;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
