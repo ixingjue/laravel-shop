@@ -315,6 +315,11 @@ body {
     }
 
     border-right: 1px solid #ddd;
+
+    .payment-buttons, .receive-button {
+      margin-top: 10px;
+      padding-right: 10px;
+    }
   }
 
   .order-summary {
