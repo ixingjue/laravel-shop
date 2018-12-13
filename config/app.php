@@ -231,4 +231,6 @@ return [
     'faker_locale' => 'zh_CN',
     //关闭订单任务延时时间 30分钟
     'order_ttl' => 1800,
+    // 30天自动确认收货
+    'auto_receive_ttl' => 2592000,
 ];
