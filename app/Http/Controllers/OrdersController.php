@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\Request;
-use App\Jobs\closeOrder;
+use App\Jobs\CloseOrder;
 use App\Models\Order;
 use App\Models\ProductSku;
 use App\Services\OrderService;
@@ -82,7 +82,7 @@ class OrdersController extends Controller
         //            $cartService->remove($skuIds);
         //            return $order;
         //        });
-        //        $this->dispatch(new closeOrder($order, config('app.order_ttl')));
+        //        $this->dispatch(new CloseOrder($order, config('app.order_ttl')));
         $user = $request->user();
         $address = UserAddress::find($request->input('address_id'));
         return $orderService->store($user, $address, $request->input('remark'), $request->input('items'));
