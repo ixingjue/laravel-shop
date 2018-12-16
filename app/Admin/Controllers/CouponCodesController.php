@@ -156,7 +156,8 @@ class CouponCodesController extends Controller
         $form->number('total', '总量')->rules('required|numeric|min:0');
         $form->decimal('min_amount', '最低金额')->rules('required|numeric|min:0');
         $form->datetime('not_before', '开始时间')->default(date('Y-m-d H:i:s'));
-        $form->datetime('not_after', '结束时间')->default(date('Y-m-d H:i:s'));
+        $form->datetime('not_after', '结束时间')->default(date('Y-m-d H:i:s'))
+            ->rules('after_or_equal:not_before', ['after_or_equal' => '结束时间必须大于或等于开始时间']);
         $form->switch('enabled', 'Enabled')->options(['1' => '是', '0' => '否']);
         $form->saving(function (Form $form) {
             if (!$form->code) {
