@@ -50,3 +50,6 @@ Route::get('products/{product}', 'ProductsController@show')->name('products.show
 // 服务器端回调的路由不能放到带有 auth 中间件的路由组中，因为支付宝的服务器请求不会带有认证信息。
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
 Route::post('payment/wechat/notify', 'PaymentController@wechatNotify')->name('payment.wechat.notify');
+// 微信退款回调
+Route::post('payment/wechat/refund_notify', 'PaymentController@wechatRefundNotify')
+    ->name('payment.wechat.refund_notify');
