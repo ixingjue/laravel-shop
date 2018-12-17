@@ -55,7 +55,7 @@ class OrdersSeeder extends Seeder
                 })->first(
                     \DB::raw('count(*) as review_count'),
                     \DB::raw('avg(rating) as rating'),
-                    \DB::raw('sum(amount) as sold_count'),
+                    \DB::raw('sum(amount) as sold_count')
                 );
             $product->update([
                 'rating' => $result->rating ?: 5, // 如果某个商品没有评分，则默认为 5 分
