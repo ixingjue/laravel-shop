@@ -13,7 +13,7 @@ $factory->define(App\Models\Order::class, function (Faker $faker) {
     // 10% 的概率把订单标记为退款
     $refund = random_int(0, 10) < 1;
     // 随机生成发货状态
-    $ship = $faker->randomElements(array_keys(Order::$shipStatusMap));
+    $ship = $faker->randomElement(array_keys(Order::$shipStatusMap));
     // 优惠券
     $coupon = null;
     // 30% 概率该订单使用了优惠券
@@ -31,6 +31,7 @@ $factory->define(App\Models\Order::class, function (Faker $faker) {
             'contact_name' => $address->contact_name,
             'contact_phone' => $address->contact_phone,
         ],
+        'total_amount' => 0,
         'remark' => $faker->sentence,
         'paid_at' => $faker->dateTimeBetween('-30 days'), // 30天前到现在任意时间点
         'payment_method' => $faker->randomElement(['wechat', 'alipay']),

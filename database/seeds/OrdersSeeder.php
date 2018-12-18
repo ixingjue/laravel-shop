@@ -22,14 +22,12 @@ class OrdersSeeder extends Seeder
         $products = collect([]);
         foreach ($orders as $order) {
             // 每笔订单随机 1 - 3 个商品
-            $items = factory(OrderItem::class, random_int(1, 3)->create(
-                [
-                    'order_id' => $order->id,
-                    'rating' => $order->reviewed ? random_int(1, 5) : null,  // 随机评分 1 - 5
-                    'review' => $order->reviewed ? $faker->sentence : null,
-                    'reviewed_at' => $order->reviewed ? $faker->dateTimeBetween($order->paid_at) : null, // 评价时间不能早于支付时间
-                ]
-            ));
+            $items = factory(OrderItem::class, random_int(1, 3))->create([
+                'order_id' => $order->id,
+                'rating' => $order->reviewed ? random_int(1, 5) : null,  // 随机评分 1 - 5
+                'review' => $order->reviewed ? $faker->sentence : null,
+                'reviewed_at' => $order->reviewed ? $faker->dateTimeBetween($order->paid_at) : null, // 评价时间不能早于支付时间
+            ]);
             // 计算总价
             $total = $items->sum(function (OrderItem $item) {
                 return $item->price * $item->amount;
@@ -52,11 +50,11 @@ class OrdersSeeder extends Seeder
                 ->where('product_id', $product->id)
                 ->whereHas('order', function ($query) {
                     $query->whereNotNull('paid_at');
-                })->first(
+                })->first([
                     \DB::raw('count(*) as review_count'),
                     \DB::raw('avg(rating) as rating'),
-                    \DB::raw('sum(amount) as sold_count')
-                );
+                    \DB::raw('sum(amount) as sold_count'),
+                ]);
             $product->update([
                 'rating' => $result->rating ?: 5, // 如果某个商品没有评分，则默认为 5 分
                 'review_count' => $result->review_count,
