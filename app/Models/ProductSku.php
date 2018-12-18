@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductSku extends Model
 {
+    use ItemTrait;
     //@fixme 为什么product_id不需要放进来
-    protected $fillable = ['title', 'description', 'price', 'stock'];
+    protected $fillable = ['title', 'description', 'image', 'price', 'stock'];
 
     public function product()
     {
