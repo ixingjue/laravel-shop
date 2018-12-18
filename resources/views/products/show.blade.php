@@ -28,6 +28,7 @@
                                         <label class="btn btn-default sku-btn"
                                                data-price="{{$sku->price}}"
                                                data-stock="{{$sku->stock}}"
+                                               data-cover="{{$sku->image_url}}"
                                                data-toggle="tooltip"
                                                title="{{$sku->description}}"
                                                data-placement="bottom"
@@ -41,6 +42,7 @@
                                                 $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
                                                 $('.sku-btn').click(function () {
                                                     $('.product-info .price span').text($(this).data('price'));
+                                                    $('.product-info .cover').attr('src', $(this).data('cover'));
                                                     $('.product-info .stock').text('库存：' + $(this).data('stock') + '件')
                                                 });
                                                 // 监听收藏按钮的点击事件
