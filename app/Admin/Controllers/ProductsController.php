@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -78,9 +79,12 @@ class ProductsController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Product);
-
+        // 使用 with 来预加载商品类目数据，减少 SQL 查询
+        $grid->model()->with(['category']);
         $grid->id('Id')->sortable();
         $grid->title('商品名称');
+        // Laravel-Admin 支持用符号 . 来展示关联关系的字段
+        $grid->column('category.name', '类目');
         $grid->on_sale('已上架')->display(function ($value) {
             return $value ? '是' : '否';
         });
@@ -138,12 +142,18 @@ class ProductsController extends Controller
         $form = new Form(new Product);
         // 创建一个输入框，第一个参数 title 是模型的字段名，第二个参数是该字段描述
         $form->text('title', '商品名称')->rules('required');
+        // 添加一个类目字段，与之前类目管理类似，使用 Ajax 的方式来搜索添加
+        $form->select('category_id', '类目')->options(function ($id) {
+            $category = Category::find($id);
+            if ($category) {
+                return [$category->id => $category->full_name];
+            }
+        })->ajax('/admin/api/categories?is_directory=0');
         // 创建一个选择图片的框
         $form->image('image', '封面图片')->rules('required|image');
         // 创建一个富文本编辑器
         $form->editor('description', '商品描述')->rules('required');
         // 创建一组单选框
-        //@fixme 这里为啥不用true 参照email_verified
         $form->switch('on_sale', '上架')->options(['1' => '是', '0' => '否'])->default('0');
         // 直接添加一对多的关联模型
         $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
