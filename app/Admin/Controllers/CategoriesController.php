@@ -25,6 +25,7 @@ class CategoriesController extends Controller
     {
         return $content
             ->header('商品类目列表')
+            ->description('')
             ->body($this->grid());
     }
 
@@ -39,6 +40,7 @@ class CategoriesController extends Controller
     {
         return $content
             ->header('Detail')
+            ->description('')
             ->body($this->detail($id));
     }
 
@@ -53,6 +55,7 @@ class CategoriesController extends Controller
     {
         return $content
             ->header('编辑商品类目')
+            ->description('')
             ->body($this->form(true)->edit($id));
     }
 
@@ -66,6 +69,7 @@ class CategoriesController extends Controller
     {
         return $content
             ->header('创建商品类目')
+            ->description('')
             ->body($this->form(false));
     }
 

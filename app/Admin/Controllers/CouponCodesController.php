@@ -24,6 +24,7 @@ class CouponCodesController extends Controller
     {
         return $content
             ->header('优惠券列表')
+            ->description('')
             ->body($this->grid());
     }
 
@@ -38,7 +39,7 @@ class CouponCodesController extends Controller
     {
         return $content
             ->header('Detail')
-            ->description('description')
+            ->description('')
             ->body($this->detail($id));
     }
 
@@ -53,6 +54,7 @@ class CouponCodesController extends Controller
     {
         return $content
             ->header('编辑优惠券')
+            ->description('')
             ->body($this->form()->edit($id));
     }
 
@@ -66,6 +68,7 @@ class CouponCodesController extends Controller
     {
         return $content
             ->header('新增优惠券')
+            ->description('')
             ->body($this->form());
     }
 

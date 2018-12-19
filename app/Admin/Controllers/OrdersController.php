@@ -29,6 +29,7 @@ class OrdersController extends Controller
     {
         return $content
             ->header('订单列表')
+            ->description('')
             ->body($this->grid());
     }
 
@@ -90,7 +91,7 @@ class OrdersController extends Controller
     {
         return $content
             ->header('Edit')
-            ->description('description')
+            ->description('')
             ->body($this->form()->edit($id));
     }
 

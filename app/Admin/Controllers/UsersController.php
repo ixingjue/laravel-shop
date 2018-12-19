@@ -22,6 +22,7 @@ class UsersController extends Controller
     {
         return $content
             ->header('用户列表')
+            ->description('')
             ->body($this->grid());
     }
 
