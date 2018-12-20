@@ -543,6 +543,15 @@ body {
     }
   }
 
+  /* User register page */
+  .register-page {
+    img.captcha {
+      margin-bottom: 0px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  }
+
   .products-list {
     padding: 0 15px;
 
