@@ -55,6 +55,15 @@ body {
   }
 }
 
+/* User profile page */
+.users-show-page {
+  .user-info {
+    .thumbnail {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .products-show-page {
   .cover {
     width: 100%;
