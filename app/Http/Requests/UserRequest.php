@@ -19,13 +19,13 @@ class UserRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     * @url https://laravel-china.org/topics/20734
      * @return array
      */
     public function rules()
     {
         return [
-            'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),
+            'name' => 'required|between:3,25|regex:/^[\u4e00-\u9fa5A-Za-z0-9-_]+$/|unique:users,name,' . Auth::id(),
             'email' => 'required|email',
             'introduction' => 'max:80',
         ];
