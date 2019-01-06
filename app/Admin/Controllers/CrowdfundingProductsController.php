@@ -160,6 +160,7 @@ class CrowdfundingProductsController extends Controller
         $form->datetime('crowdfunding.end_at', '众筹结束时间')->rules('required|date');
         $form->hasMany('skus', '商品SKU', function (Form\NestedForm $form) {
             $form->text('title', 'SKU 名称')->rules('required');
+            $form->image('image', '封面图片')->rules('required|image');
             $form->text('description', 'SKU 描述')->rules('required');
             $form->text('price', '单价')->rules('required|numeric|min:0.01');
             $form->text('stock', '剩余库存')->rules('required|integer|min:0');
