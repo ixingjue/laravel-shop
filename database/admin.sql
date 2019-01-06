@@ -20,7 +20,7 @@
 
 LOCK TABLES `admin_menu` WRITE;
 /*!40000 ALTER TABLE `admin_menu` DISABLE KEYS */;
-INSERT INTO `admin_menu` VALUES (1,2,8,'首页','fa-bar-chart','/',NULL,'2018-12-19 07:57:37'),(2,0,7,'系统管理','fa-tasks',NULL,NULL,'2018-12-19 07:57:37'),(3,2,9,'管理员','fa-users','auth/users',NULL,'2018-12-19 07:57:37'),(4,2,10,'角色','fa-user','auth/roles',NULL,'2018-12-19 07:57:37'),(5,2,11,'权限','fa-ban','auth/permissions',NULL,'2018-12-19 07:57:37'),(6,2,12,'菜单','fa-bars','auth/menu',NULL,'2018-12-19 07:57:37'),(7,2,13,'操作日志','fa-history','auth/logs',NULL,'2018-12-19 07:57:37'),(8,0,2,'用户管理','fa-users','/users','2018-12-06 19:49:00','2018-12-19 07:12:21'),(9,0,4,'商品管理','fa-cubes','/products','2018-12-06 22:38:56','2018-12-19 07:57:37'),(10,0,5,'订单管理','fa-rmb','/orders','2018-12-12 09:52:25','2018-12-19 07:57:37'),(11,0,6,'优惠券管理','fa-tags','/coupon_codes','2018-12-16 12:04:01','2018-12-19 07:57:37'),(12,0,1,'数据报表分析','fa-anchor','/reports','2018-12-18 14:04:18','2018-12-19 07:12:21'),(13,0,3,'类目管理','fa-bars','/categories','2018-12-19 07:57:26','2018-12-19 07:57:37');
+INSERT INTO `admin_menu` VALUES (1,2,10,'首页','fa-bar-chart','/',NULL,'2019-01-06 13:14:18'),(2,0,9,'系统管理','fa-tasks',NULL,NULL,'2019-01-06 13:14:18'),(3,2,11,'管理员','fa-users','auth/users',NULL,'2019-01-06 13:14:18'),(4,2,12,'角色','fa-user','auth/roles',NULL,'2019-01-06 13:14:18'),(5,2,13,'权限','fa-ban','auth/permissions',NULL,'2019-01-06 13:14:18'),(6,2,14,'菜单','fa-bars','auth/menu',NULL,'2019-01-06 13:14:18'),(7,2,15,'操作日志','fa-history','auth/logs',NULL,'2019-01-06 13:14:19'),(8,0,2,'用户管理','fa-users','/users','2018-12-06 19:49:00','2018-12-19 07:12:21'),(9,0,4,'商品管理','fa-cubes','/products','2018-12-06 22:38:56','2018-12-19 07:57:37'),(10,0,7,'订单管理','fa-rmb','/orders','2018-12-12 09:52:25','2019-01-06 13:14:18'),(11,0,8,'优惠券管理','fa-tags','/coupon_codes','2018-12-16 12:04:01','2019-01-06 13:14:18'),(12,0,1,'数据报表分析','fa-anchor','/reports','2018-12-18 14:04:18','2018-12-19 07:12:21'),(13,0,3,'类目管理','fa-bars','/categories','2018-12-19 07:57:26','2018-12-19 07:57:37'),(14,9,6,'众筹商品','fa-flag-checkered','/crowdfunding_products','2019-01-06 13:12:46','2019-01-06 13:16:14'),(15,9,5,'普通商品','fa-cubes','/products','2019-01-06 13:14:09','2019-01-06 13:15:24');
 /*!40000 ALTER TABLE `admin_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,4 +102,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-19 16:26:36
+-- Dump completed on 2019-01-06 21:20:48
