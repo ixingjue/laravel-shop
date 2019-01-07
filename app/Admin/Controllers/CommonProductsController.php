@@ -38,7 +38,7 @@ abstract class CommonProductsController extends Controller
             ->body($this->form());
     }
 
-    public function grid()
+    protected function grid()
     {
         $grid = new Grid(new Product());
 
@@ -91,6 +91,7 @@ abstract class CommonProductsController extends Controller
             $form->model()->price = collect($form->input('skus'))
                 ->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
         });
+        return $form;
     }
 
     // 定义一个抽象方法，各个类型的控制器将实现本方法来定义表单应该有哪些额外的字段
