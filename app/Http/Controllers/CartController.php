@@ -19,23 +19,6 @@ class CartController extends Controller
 
     public function add(AddCartRequest $request)
     {
-        //@fixme 有机会实现未登录保存购物车的功能  https://laravel-china.org/topics/17397?#reply74136
-        // $user = $request->user();
-        //        $skuId = $request->input('sku_id');
-        //        $amount = $request->input('amount');
-        //        // 从数据库中查询该商品是否已经在购物车中
-        //        if ($cart = $user->cartItems()->where('product_sku_id', $skuId)->first()) {
-        //            // 如果存在则直接叠加商品数量
-        //            $cart->update([
-        //                'amount' => $cart->amount + $amount,
-        //            ]);
-        //        } else {
-        //            // 否则创建一个新的购物车记录
-        //            $cart = new CartItem(['amount' => $amount]);
-        //            $cart->user()->associate($user);
-        //            $cart->productSku()->associate($skuId);
-        //            $cart->save();
-        //        }
         $this->cartService->add($request->input('sku_id'), $request->input('amount'));
         return [];
     }
@@ -44,7 +27,12 @@ class CartController extends Controller
     {
         //$cartItems = $request->user()->cartItems()->with(['productSku.product'])->get();
         $cartItems = $this->cartService->get();
-        $addresses = $request->user()->addresses()->orderBy('last_used_at', 'desc')->get();
+        $user = $request->user();
+        if ($user) {
+            $addresses = $user->addresses()->orderBy('last_used_at', 'desc')->get();
+        } else {
+            $addresses = [];
+        }
         return view('cart.index', ['cartItems' => $cartItems, 'addresses' => $addresses]);
     }
 

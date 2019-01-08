@@ -20,36 +20,73 @@
                         </thead>
                         <tbody class="product_list">
                         @if(count($cartItems)>0)
-                            @foreach($cartItems as $item)
-                                <tr data-id="{{ $item->productSku->id }}">
-                                    <td>
-                                        <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
-                                    </td>
-                                    <td class="product_info">
-                                        <div class="preview">
-                                            <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
-                                                <img src="{{ $item->productSku->product->image_url }}">
-                                            </a>
-                                        </div>
-                                        <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
+                            @guest
+                                @foreach($cartItems as $item)
+                                    <?php  $item = explode('-', $item); ?>
+                                    <tr data-id="{{ \App\Models\ProductSku::query()->where('id',$item[0])->first()->id}}">
+                                        <td>
+                                            <input type="checkbox" name="select" value="{{ \App\Models\ProductSku::query()->where('id',$item[0])->first()->id }}" {{ \App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->on_sale ? 'checked' : 'disabled' }}>
+                                        </td>
+                                        <td class="product_info">
+                                            <div class="preview">
+                                                <a target="_blank" href="{{ route('products.show', [\App\Models\ProductSku::query()->where('id',$item[0])->first()->product_id]) }}">
+                                                    <img src="{{ \App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->image_url }}">
+                                                </a>
+                                            </div>
+                                            <div @if(!\App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->on_sale) class="not_on_sale" @endif>
+              <span class="product_title">
+                <a target="_blank" href="{{ route('products.show', [\App\Models\ProductSku::query()->where('id',$item[0])->first()->product_id]) }}">{{ \App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->title }}</a>
+              </span>
+                                                <span class="sku_title">{{ \App\Models\ProductSku::query()->where('id',$item[0])->first()->title }}</span>
+                                                @if(!\App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->on_sale)
+                                                    <span class="warning">该商品已下架</span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="price">￥{{ \App\Models\ProductSku::query()->where('id',$item[0])->first()->price }}</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm amount" @if(!\App\Models\Product::query()->where('id',\App\Models\ProductSku::query()->where('id',$item[0])->first()->id)->first()->on_sale) disabled @endif name="amount" value="{{ $item[1] }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-xs btn-danger btn-remove">移除</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            @else
+                                @foreach($cartItems as $item)
+                                    <tr data-id="{{ $item->productSku->id }}">
+                                        <td>
+                                            <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
+                                        </td>
+                                        <td class="product_info">
+                                            <div class="preview">
+                                                <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
+                                                    <img src="{{ $item->productSku->product->image_url }}">
+                                                </a>
+                                            </div>
+                                            <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
               <span class="product_title">
                 <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">{{ $item->productSku->product->title }}</a>
               </span>
-                                            <span class="sku_title">{{ $item->productSku->title }}</span>
-                                            @if(!$item->productSku->product->on_sale)
-                                                <span class="warning">该商品已下架</span>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td><span class="price">￥{{ $item->productSku->price }}</span></td>
-                                    <td>
-                                        <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-xs btn-danger btn-remove">移除</button>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                                <span class="sku_title">{{ $item->productSku->title }}</span>
+                                                @if(!$item->productSku->product->on_sale)
+                                                    <span class="warning">该商品已下架</span>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td><span class="price">￥{{ $item->productSku->price }}</span></td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-xs btn-danger btn-remove">移除</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         @else
                             <tr>
                                 <td class="text-center" colspan="5">
@@ -60,7 +97,7 @@
                         </tbody>
                     </table>
                     <!--开始-->
-                    @if(count($cartItems)>0)
+                    @if(count($cartItems)>0 && count($addresses)>0)
                         <div>
                             <form class="form-horizontal" role="form" id="order-form">
                                 <div class="form-group">

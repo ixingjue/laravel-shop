@@ -94,10 +94,7 @@
                                                                     location.href = '{{route('cart.index')}}'
                                                                 })
                                                         }, function (error) {// 请求失败执行此回调
-                                                            if (error.response.status === 401) {
-                                                                // http 状态码为 401 代表用户未登陆
-                                                                swal('请先登录', '', 'error');
-                                                            } else if (error.response.status === 400) {
+                                                            if (error.response.status === 400) {
                                                                 swal(error.response.data.msg, '', 'error')
                                                             } else if (error.response.status === 422) {
                                                                 // http 状态码为 422 代表用户输入校验失败
