@@ -21,6 +21,7 @@ abstract class CommonProductsController extends Controller
     {
         return $content
             ->header(Product::$typeMap[$this->getProductType()] . '列表')
+            ->description(' ')
             ->body($this->grid());
     }
 
@@ -28,6 +29,7 @@ abstract class CommonProductsController extends Controller
     {
         return $content
             ->header('编辑' . Product::$typeMap[$this->getProductType()])
+            ->description(' ')
             ->body($this->form()->edit($id));
     }
 
@@ -35,6 +37,7 @@ abstract class CommonProductsController extends Controller
     {
         return $content
             ->header('创建' . Product::$typeMap[$this->getProductType()])
+            ->description(' ')
             ->body($this->form());
     }
 
