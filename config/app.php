@@ -233,4 +233,6 @@ return [
     'order_ttl' => 1800,
     // 30天自动确认收货
     'auto_receive_ttl' => 2592000,
+
+    'ngrok_url' => env('NGROK_URL'),
 ];
