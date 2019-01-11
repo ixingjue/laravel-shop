@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Events\OrderReviewed;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\ApplyRefundRequest;
+use App\Http\Requests\CrowdFundingOrderRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\Request;
 use App\Http\Requests\SendReviewRequest;
 use App\Jobs\CloseOrder;
 use App\Models\CouponCode;
+use App\Models\CrowdfundingProduct;
 use App\Models\Order;
 use App\Models\ProductSku;
 use App\Services\OrderService;
@@ -133,5 +135,16 @@ class OrdersController extends Controller
             'extra' => $extra,
         ]);
         return $order;
+    }
+
+    // 创建一个新的方法用于接受众筹商品下单请求
+    public function crowdfunding(CrowdFundingOrderRequest $request, OrderService $orderService)
+    {
+        $user = $request->user();
+        $sku = ProductSku::query()->find($request->input('sku_id'));
+        $address = UserAddress::query()->find($request->input('address_id'));
+        $amount = $request->input('amount');
+        // todo 这里的返回值为什么是$order
+        return $orderService->crowdfunding($user, $address, $sku, $amount);
     }
 }
